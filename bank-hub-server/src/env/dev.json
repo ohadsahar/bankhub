@@ -1,0 +1,14 @@
+{
+    "name":"dev",
+    "logLevel":"tiny",
+    "dbHost":"localhost",
+    "dbUser":"postgres",
+    "dbPass":"ppd53brx",
+    "dbName":"bankhub",
+    "port":3000,
+    "dbPort":5432,
+    "production": false,
+    "synchronize":true,
+    "dropSchema":false,
+    "logging":false
+}
