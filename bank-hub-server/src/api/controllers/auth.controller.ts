@@ -34,7 +34,7 @@ export const getMe = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
     try {
-        const result = await authService.update(req.body, req.user);
+        const result = await authService.update(req.body, req.user, req.file);
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);

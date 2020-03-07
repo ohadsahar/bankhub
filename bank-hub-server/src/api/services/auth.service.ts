@@ -5,9 +5,11 @@ import getConfig from '../../config/env.config';
 import { UserEntity } from '../../entities/user.entity';
 import { SmsValidateDto } from '../models/sms-validate.dto';
 import { JwtService } from './jwt.service';
+import { FileEntity } from '../../entities/file.entity';
+import { FileService } from './file.service';
 
 const jwtService = Container.get(JwtService);
-
+const fileService = Container.get(FileService);
 @Service()
 export class AuthService {
 
@@ -23,12 +25,14 @@ export class AuthService {
     async sendSms(phoneNumber: string) {
         const client = twilio(getConfig().sms.accountSid, getConfig().sms.authToken);
         const resultOfSms = await client.verify.services(getConfig().sms.serviceVerifyToken).verifications
-            .create({ to: phoneNumber, channel: getConfig().sms.channel, amount: getConfig().sms.amount });
+            .create({
+                to: phoneNumber, channel: getConfig().sms.channel, amount: getConfig().sms.amount
+            });
         return resultOfSms;
     }
 
     async verifySms(verifyData: SmsValidateDto) {
-        let validResult;
+        let validResult: any;
         const client = twilio(getConfig().sms.accountSid, getConfig().sms.authToken);
         const result = await client.verify.services(getConfig().sms.serviceVerifyToken)
             .verificationChecks
@@ -54,10 +58,21 @@ export class AuthService {
         return await this.getUserRepository().findOne({ phoneNumber });
     }
 
-    async update(userData: UserEntity, user: any) {
+    async update(userData: UserEntity, user: any, profileImage?) {
+        if (profileImage) {
+            userData.file = await this.handleImage(user, profileImage);
+        }
         const result = await this.findByPhoneNumber(user.phoneNumber);
         if (!result) { return; }
         return await this.getUserRepository().save({ ...result, ...userData });
+    }
+
+    async handleImage(user: any, profileImage) {
+        const fileEntity = new FileEntity();
+        fileEntity.uploader = user;
+        fileEntity.fileName = profileImage.filename;
+        fileEntity.filePath = profileImage.path;
+        return await fileService.create(fileEntity);
     }
 }
 

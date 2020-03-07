@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(ApiRouter);
 
 async function init() {
-    let db = await bootstrapDb();
+    const db = await bootstrapDb();
     initJWT();
     if (db) {
         Logger.info('DB is connected');

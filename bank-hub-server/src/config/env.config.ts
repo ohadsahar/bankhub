@@ -17,6 +17,9 @@ const constants = {
         key: "l23@#shfa1340**@dfg009Alk3#Vk_anlj",
         ignoreExpiration: false
     },
+    s3: {
+        upload_dir: 'bankhub-uploads'
+    }
 }
 export interface IConfig {
     name: string;
@@ -44,6 +47,9 @@ export interface IConfig {
         key: string,
         ignoreExpiration: boolean
     },
+    s3: {
+        upload_dir: string;
+    }
 }
 
 let config: any;
