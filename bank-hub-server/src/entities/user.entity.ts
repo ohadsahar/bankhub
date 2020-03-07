@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { FileEntity } from './file.entity';
 
 @Entity()
 export class UserEntity {
@@ -16,4 +17,8 @@ export class UserEntity {
 
     @Column({ nullable: true })
     lastName: string;
+
+    @OneToOne(() => FileEntity, file => file.uploader, { eager: true })
+    @JoinColumn()
+    file: FileEntity;
 }

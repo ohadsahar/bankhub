@@ -1,5 +1,6 @@
 import { UserEntity } from '../entities/user.entity';
 import getConfig from "./env.config";
+import { FileEntity } from '../entities/file.entity';
 
 const config = getConfig();
 
@@ -10,7 +11,7 @@ const ormConfig = {
     username: config.dbUser,
     password: config.dbPass,
     database: config.dbName,
-    entities: [UserEntity],
+    entities: [UserEntity, FileEntity],
     synchronize: config.synchronize || false,
     logging: config.logging || false,
     dropSchema: config.dropSchema || false
