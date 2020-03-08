@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10. # Invoke the Heroku orb
-
 workflows:
   heroku_deploy:
     jobs:
@@ -11,18 +10,4 @@ workflows:
             - build
           filters:
             branches:
-              only: sequential-branch-filter
-jobs:
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-          #  - run: npm test
-workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+              only: master
