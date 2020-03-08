@@ -4,8 +4,9 @@
   "description": "",
   "main": "dist/app.ts",
   "scripts": {
-    "start": "ts-node src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node src/app.ts ",
+    "test": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -41,5 +42,11 @@
     "typedi": "^0.8.0",
     "typeorm": "^0.2.24",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
   }
 }
