@@ -1,34 +1,36 @@
 import passport from 'passport';
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
-import { Container } from "typedi";
-import { AuthService } from '../api/services/auth.service';
+import {ExtractJwt, Strategy as JwtStrategy} from 'passport-jwt';
+import {Container} from "typedi";
+import {AuthService} from '../api/services/auth.service';
 import getConfig from "./env.config";
 import Logger from "./logger.config";
+// import {AdminAuthService} from '../api/services/admin-auth.service';
 
 const authService = Container.get(AuthService);
-
+// const authAdminService = Container.get(AdminAuthService);
 const config = getConfig();
 
 export const initJWT = () => {
     Logger.info('Initiating jwt');
     const options = {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("Bearer"),
         secretOrKey: config.jwt.key,
         ignoreExpiration: config.jwt.ignoreExpiration
     };
-    const strategy = new JwtStrategy(options, function (jwt_payload, done) {
-        authService
-            .findByPhoneNumber(jwt_payload.phoneNumber) // also attach organization to user
-            .then((user) => {
-                if (!user) {
-                    return done(
-                        new Error('No user with this phone Number' + jwt_payload.phoneNumber));
-                }
-                return done(null, { user });
-            })
-            .catch((error) => {
-                return done(error);
-            });
+    const strategy = new JwtStrategy(options, async (jwtPayload: { phoneNumber: string }, done) => {
+        let user;
+        user = await authService.findByPhoneNumber(jwtPayload.phoneNumber);
+        if (!user) {
+            // user = await authAdminService.adminGet(jwtPayload.phoneNumber);
+            if (!user) {
+                return done(
+                    new Error('No user with this phone Number' + jwtPayload.phoneNumber));
+            } else {
+                return done(null, {user});
+            }
+        } else {
+            return done(null, {user});
+        }
     });
     passport.use(strategy);
 };

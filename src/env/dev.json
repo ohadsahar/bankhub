@@ -3,7 +3,7 @@
     "logLevel":"tiny",
     "dbHost":"localhost",
     "dbUser":"postgres",
-    "dbPass":"ppd53brx",
+    "dbPass":"Flower123",
     "dbName":"bankhub",
     "port":3000,
     "dbPort":5432,

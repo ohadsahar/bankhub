@@ -7,8 +7,9 @@ import "reflect-metadata";
 import ApiRouter from "./api/routes";
 import bootstrapDb from './config/db.config';
 import getConfig from './config/env.config';
-import { initJWT } from './config/jwt.config';
+import {initJWT} from './config/jwt.config';
 import Logger from './config/logger.config';
+import 'dotenv/config'
 
 const app = express();
 const config = getConfig();
@@ -16,12 +17,12 @@ const config = getConfig();
 Logger.info('Starting server on 3..2..1..0');
 Logger.info(`Env: ${config.name}`);
 
-app.use(morgan());
+app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(passport.initialize());
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({extended: true, limit: '10mb'}));
 app.use(ApiRouter);
 
 async function init() {

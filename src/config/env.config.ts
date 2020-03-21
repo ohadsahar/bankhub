@@ -1,4 +1,4 @@
-import minimist, { ParsedArgs } from 'minimist';
+import minimist, {ParsedArgs} from 'minimist';
 import * as path from 'path';
 
 const argv: ParsedArgs = minimist(process.argv.slice(2));
@@ -21,6 +21,7 @@ const constants = {
         upload_dir: 'bankhub-uploads'
     }
 }
+
 export interface IConfig {
     name: string;
     production: boolean;

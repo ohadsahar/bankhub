@@ -1,24 +1,27 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
-import { FileEntity } from './file.entity';
+import {Column, Entity, JoinColumn, OneToMany, OneToOne} from "typeorm";
+import {FileModel} from './file.entity';
+import {MainEntity} from "../api/models/main.abstract";
+import {Card} from "./card.entity";
+import {Category} from "./category.entity";
 
 @Entity()
-export class UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class User extends MainEntity {
 
-    @Column()
-    userToken: string;
+    @Column({nullable: true})
+    fullName: string;
 
     @Column()
     phoneNumber: string;
 
-    @Column({ nullable: true })
-    firstName: string;
-
-    @Column({ nullable: true })
-    lastName: string;
-
-    @OneToOne(() => FileEntity, file => file.uploader, { eager: true })
+    @OneToOne(type => FileModel, file => file.user, {cascade: true})
     @JoinColumn()
-    file: FileEntity;
+    profilePicture: FileModel;
+
+    @OneToMany(type => Card, card => card.user)
+    @JoinColumn()
+    cards: Card[]
+
+    @OneToMany(type => Category, category => category.user)
+    @JoinColumn()
+    category: Category[];
 }

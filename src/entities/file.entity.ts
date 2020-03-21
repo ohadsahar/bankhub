@@ -1,12 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from "typeorm";
-import { UserEntity } from './user.entity';
+import {Column, Entity, OneToOne} from "typeorm";
+import {User} from './user.entity';
+import {MainEntity} from "../api/models/main.abstract";
 
 
 @Entity()
-export class FileEntity {
-
-    @PrimaryGeneratedColumn()
-    id: number;
+export class FileModel extends MainEntity {
 
     @Column()
     filePath: string;
@@ -14,7 +12,10 @@ export class FileEntity {
     @Column()
     fileName: string;
 
-    @OneToOne(() => UserEntity, user => user.file, { onDelete: 'CASCADE' })
-    uploader: UserEntity;
+    @Column()
+    uploaderId: number;
+
+    @OneToOne(type => User, user => user.profilePicture)
+    user: User | User['id']
 
 }

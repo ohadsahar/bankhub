@@ -1,6 +1,6 @@
 import bootstrapDb from '../config/db.config';
-import { AuthService } from '../api/services/auth.service';
-import { Container } from 'typedi';
+import {AuthService} from '../api/services/auth.service';
+import {Container} from 'typedi';
 
 const authService = Container.get(AuthService);
 
