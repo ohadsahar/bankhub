@@ -19,15 +19,17 @@ export class Card extends MainEntity {
     @Column()
     cardLogo: string;
 
-    @ManyToOne(type => User, user => user.cards)
+    @Column({nullable: true})
+    syncId: number;
+
+    @ManyToOne(type => User, user => user.cards, {cascade: true})
     user: User | User['id']
 
-    @OneToMany(type => Transaction, transaction => transaction.card)
+    @OneToMany(type => Transaction, transaction => transaction.card, {cascade: true})
     @JoinColumn()
     transactions: Transaction[];
 
     @OneToOne(type => BankAccount, bankAccount => bankAccount.card, {cascade: true})
-    @JoinColumn()
     bankAccount: BankAccount | BankAccount['id']
 
 }

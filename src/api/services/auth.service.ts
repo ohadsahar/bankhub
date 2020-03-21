@@ -45,6 +45,10 @@ export class AuthService {
         return jwtService.createJwt({phoneNumber});
     }
 
+    async findByPhoneNumber(phoneNumber: string): Promise<User> {
+        return await User.findOne({phoneNumber});
+    }
+
     async update(userData, user: any, profileImage?): Promise<User> {
         const fileModel = new FileModel();
         const result = await User.findOne(user.id);
@@ -52,6 +56,9 @@ export class AuthService {
             return null;
         }
         if (profileImage) {
+            if (result.profilePicture) {
+                await fileService.removeS3(result.profilePicture.fileName);
+            }
             const {Location, Key} = await fileService.uploadImage(profileImage);
             fileModel.fileName = Key;
             fileModel.filePath = Location;

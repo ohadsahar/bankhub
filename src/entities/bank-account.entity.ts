@@ -1,4 +1,4 @@
-import {Column, Entity, OneToOne} from "typeorm";
+import {Column, Entity, JoinColumn, OneToOne} from "typeorm";
 import {MainEntity} from "../api/models/main.abstract";
 import {Card} from "./card.entity";
 
@@ -15,6 +15,7 @@ export class BankAccount extends MainEntity {
     bankName: string;
 
     @OneToOne(type => Card, card => card.bankAccount)
+    @JoinColumn()
     card: Card | Card['id']
 
 }

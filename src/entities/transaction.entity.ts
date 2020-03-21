@@ -27,6 +27,4 @@ export class Transaction extends MainEntity {
     @OneToOne(type => Category, category => category.transaction, {cascade: true})
     @JoinColumn()
     category: Category | Category['id'];
-
-
 }

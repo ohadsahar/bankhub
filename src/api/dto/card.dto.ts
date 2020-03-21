@@ -14,4 +14,14 @@ export class CardDto {
     @IsDefined()
     cardLogo: string;
 
+    @IsDefined()
+    branch: number;
+
+    @IsDefined()
+    accountNumber: number;
+
+    @IsDefined()
+    bankName: string;
+
+
 }

@@ -40,6 +40,7 @@ export const update = async (req: Request, res: Response) => {
         const result = await authService.update(transformed, req.user, req.file);
         return handlerService.handleSuccess(res, result);
     } catch (error) {
+        console.log(error);
         return handlerService.handleError(res, error);
     }
 }

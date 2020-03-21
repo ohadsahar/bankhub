@@ -1,8 +1,9 @@
 import {MainEntity} from "../api/models/main.abstract";
-import {Column, ManyToOne, OneToOne} from "typeorm";
+import {Column, Entity, ManyToOne, OneToOne} from "typeorm";
 import {User} from "./user.entity";
 import {Transaction} from "./transaction.entity";
 
+@Entity()
 export class Category extends MainEntity {
 
     @Column()
