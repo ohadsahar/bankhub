@@ -47,4 +47,8 @@ export class CardService {
     async get(): Promise<Card[]> {
         return Card.find({relations: ['user', 'transactions', 'bankAccount']});
     }
+
+    async getById(cardId): Promise<Card> {
+        return Card.findOne(cardId, {relations: ['user', 'transactions', 'bankAccount']});
+    }
 }

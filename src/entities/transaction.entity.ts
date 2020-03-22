@@ -16,15 +16,18 @@ export class Transaction extends MainEntity {
     payments: number;
 
     @Column()
-    transactionDate: Date;
+    eachMonth: number;
+
+    @Column()
+    transactionDate: string;
 
     @Column({nullable: true})
     note: string;
 
-    @ManyToOne(type => Card, card => card.transactions)
+    @ManyToOne(type => Card, card => card.transactions, {cascade: true})
     card: Card | Card['id'];
 
-    @OneToOne(type => Category, category => category.transaction, {cascade: true})
+    @ManyToOne(type => Category, category => category.transaction, {cascade: true})
     @JoinColumn()
     category: Category | Category['id'];
 }

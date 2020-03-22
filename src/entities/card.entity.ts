@@ -25,7 +25,7 @@ export class Card extends MainEntity {
     @ManyToOne(type => User, user => user.cards, {cascade: true})
     user: User | User['id']
 
-    @OneToMany(type => Transaction, transaction => transaction.card, {cascade: true})
+    @OneToMany(type => Transaction, transaction => transaction.card)
     @JoinColumn()
     transactions: Transaction[];
 

@@ -1,17 +1,17 @@
 import {Request, Response} from 'express';
 import {Container} from "typedi";
 import {HandlerService} from "../services/handler.service";
+import {TransactionService} from "../services/transaction.service";
 import {plainToClass} from "class-transformer";
-import {CardDto} from "../dto/card.dto";
-import {CardService} from "../services/card.service";
+import {TransactionDto} from "../dto/transaction.dto";
 
-const cardService = Container.get(CardService);
 const handlerService = Container.get(HandlerService);
+const transactionService = Container.get(TransactionService);
 
 export const create = async (req: Request, res: Response) => {
     try {
-        const transformed = plainToClass(CardDto, req.body);
-        const result = await cardService.create(transformed, req.user);
+        const transformed = plainToClass(TransactionDto, req.body);
+        const result = await transactionService.create(transformed, Number(req.params.id));
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);
@@ -20,17 +20,17 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
     try {
-        const transformed = plainToClass(CardDto, req.body);
-        const result = await cardService.update(transformed, parseInt(req.params.id));
+        const transformed = plainToClass(TransactionDto, req.body);
+        const result = await transactionService.update(transformed, Number(req.params.id));
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);
     }
 }
 
-export const get = async (req: Request, res: Response) => {
+export const deleteTransaction = async (req: Request, res: Response) => {
     try {
-        const result = await cardService.get();
+        const result = await transactionService.deleteTransaction(Number(req.params.id));
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);
@@ -39,16 +39,16 @@ export const get = async (req: Request, res: Response) => {
 
 export const getById = async (req: Request, res: Response) => {
     try {
-        const result = await cardService.getById(Number(req.params.id));
+        const result = await transactionService.getById(Number(req.params.id));
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);
     }
 }
 
-export const deleteCard = async (req: Request, res: Response) => {
+export const get = async (req: Request, res: Response) => {
     try {
-        const result = await cardService.deleteCard(parseInt(req.params.id));
+        const result = await transactionService.get();
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);

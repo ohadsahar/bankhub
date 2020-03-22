@@ -1,5 +1,5 @@
 import {MainEntity} from "../api/models/main.abstract";
-import {Column, Entity, ManyToOne, OneToOne} from "typeorm";
+import {Column, Entity, ManyToOne, OneToMany} from "typeorm";
 import {User} from "./user.entity";
 import {Transaction} from "./transaction.entity";
 
@@ -12,7 +12,7 @@ export class Category extends MainEntity {
     @ManyToOne(type => User, user => user.category)
     user: User | User['id']
 
-    @OneToOne(type => Transaction, transaction => transaction.category)
-    transaction: Transaction | Transaction['id']
+    @OneToMany(type => Transaction, transaction => transaction.category)
+    transaction: Transaction[];
 
 }

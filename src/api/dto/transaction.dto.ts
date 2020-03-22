@@ -12,7 +12,15 @@ export class TransactionDto {
     payments: number;
 
     @IsDefined()
-    date: Date;
+    transactionDate: Date;
 
-    
+    @IsDefined()
+    eachMonth: number;
+
+    @IsDefined()
+    note: string;
+
+    @IsDefined()
+    categoryId: number;
+
 }
