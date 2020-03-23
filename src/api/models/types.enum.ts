@@ -9,3 +9,14 @@ export enum OrderTypeEnum {
     "ASC" = "ASC",
     "DESC" = "DESC"
 }
+
+export enum BudgetOptionsEnum {
+    "FOOD" = "אוכל",
+    "ELECTRIC" = "חשמל"
+}
+
+export enum NotificationTimeEnum {
+    "WEEKLY" = "WEEKLY",
+    "MONTHLY" = "MONTHLY",
+    "DAILY" = "DAILY"
+}

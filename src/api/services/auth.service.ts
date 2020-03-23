@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     async findByPhoneNumber(phoneNumber: string): Promise<User> {
-        return await User.findOne({phoneNumber});
+        return await User.findOne({phoneNumber}, {relations: ['settings', 'budget', 'cards']});
     }
 
     async update(userData, user: any, profileImage?): Promise<User> {

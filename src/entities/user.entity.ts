@@ -1,8 +1,11 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import { MainEntity } from "../api/models/main.abstract";
-import { Card } from "./card.entity";
-import { Category } from "./category.entity";
-import { FileModel } from './file.entity';
+import {Column, Entity, JoinColumn, OneToMany, OneToOne} from "typeorm";
+import {MainEntity} from "../api/models/main.abstract";
+import {Card} from "./card.entity";
+import {Category} from "./category.entity";
+import {FileModel} from './file.entity';
+import {Budget} from "./budget.entity";
+import {Settings} from "./settings.entity";
+
 @Entity()
 export class User extends MainEntity {
 
@@ -23,4 +26,12 @@ export class User extends MainEntity {
     @OneToMany(type => Category, category => category.user)
     @JoinColumn()
     category: Category[];
+
+    @OneToMany(type => Budget, budget => budget.user)
+    @JoinColumn()
+    budget: Budget | Budget['id']
+
+    @OneToOne(type => Settings, settings => settings.user)
+    @JoinColumn()
+    settings: Settings | Settings['id']
 }
