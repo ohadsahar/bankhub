@@ -23,4 +23,5 @@ export class TransactionDto {
     @IsDefined()
     categoryId: number;
 
+
 }

@@ -4,3 +4,8 @@ export enum PaymentDateEnum {
     "C" = 10,
     "D" = 15
 }
+
+export enum OrderTypeEnum {
+    "ASC" = "ASC",
+    "DESC" = "DESC"
+}

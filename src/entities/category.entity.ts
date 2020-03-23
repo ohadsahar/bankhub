@@ -9,6 +9,9 @@ export class Category extends MainEntity {
     @Column()
     categoryName: string;
 
+    @Column({nullable: true})
+    categoryLogo: string;
+
     @ManyToOne(type => User, user => user.category)
     user: User | User['id']
 

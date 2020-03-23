@@ -53,10 +53,15 @@ export class CardService {
             .leftJoinAndSelect("card.user", "user")
             .leftJoinAndSelect("card.transactions", "transactions")
             .limit(filter.limit).skip(filter.skip)
+            .leftJoinAndSelect("transactions.category", "category")
             .leftJoinAndSelect("card.bankAccount", "bankAccount");
         if (filter.cardId) {
             query.where({id: filter.cardId});
         }
+        if (filter.categoryIds) {
+            query.andWhere("transactions.category IN (:...categoryIds)", {categoryIds: filter.categoryIds});
+        }
+
         if (filter.threeDaysAgo) {
             const today = moment().format("DD/MM/YYYY");
             const threeDays = moment().subtract(3, 'd').format("DD/MM/YYYY");
@@ -68,6 +73,9 @@ export class CardService {
         }
         if (filter.endDate && !filter.threeDaysAgo) {
             query.andWhere("transactions.transactionDate <= :endDate", {endDate: filter.endDate})
+        }
+        if (filter.order) {
+            query.addOrderBy("transactions.transactionDate", filter.order)
         }
         return query.getManyAndCount();
     }

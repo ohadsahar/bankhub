@@ -1,3 +1,5 @@
+import {OrderTypeEnum} from "../models/types.enum";
+
 export class FilterDto {
     limit: number;
     skip: number;
@@ -5,4 +7,6 @@ export class FilterDto {
     endDate: Date;
     cardId: number;
     threeDaysAgo: boolean;
+    order: OrderTypeEnum;
+    categoryIds: Array<number>;
 }
