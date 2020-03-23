@@ -1,10 +1,9 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne} from "typeorm";
-import {MainEntity} from "../api/models/main.abstract";
-import {User} from "./user.entity";
-import {Transaction} from "./transaction.entity";
-import {BankAccount} from "./bank-account.entity";
-import {PaymentDateEnum} from "../api/models/types.enum";
-
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { MainEntity } from "../api/models/main.abstract";
+import { PaymentDateEnum } from "../api/models/types.enum";
+import { BankAccount } from "./bank-account.entity";
+import { Transaction } from "./transaction.entity";
+import { User } from "./user.entity";
 @Entity()
 export class Card extends MainEntity {
 
@@ -35,5 +34,4 @@ export class Card extends MainEntity {
 
     @OneToOne(type => BankAccount, bankAccount => bankAccount.card, {cascade: true})
     bankAccount: BankAccount | BankAccount['id']
-
 }

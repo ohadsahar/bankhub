@@ -1,8 +1,6 @@
-import {Column, Entity, OneToOne} from "typeorm";
-import {User} from './user.entity';
-import {MainEntity} from "../api/models/main.abstract";
-
-
+import { Column, Entity, OneToOne } from "typeorm";
+import { MainEntity } from "../api/models/main.abstract";
+import { User } from './user.entity';
 @Entity()
 export class FileModel extends MainEntity {
 
@@ -17,5 +15,4 @@ export class FileModel extends MainEntity {
 
     @OneToOne(type => User, user => user.profilePicture)
     user: User | User['id']
-
 }

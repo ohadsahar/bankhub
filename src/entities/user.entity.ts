@@ -1,9 +1,8 @@
-import {Column, Entity, JoinColumn, OneToMany, OneToOne} from "typeorm";
-import {FileModel} from './file.entity';
-import {MainEntity} from "../api/models/main.abstract";
-import {Card} from "./card.entity";
-import {Category} from "./category.entity";
-
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import { MainEntity } from "../api/models/main.abstract";
+import { Card } from "./card.entity";
+import { Category } from "./category.entity";
+import { FileModel } from './file.entity';
 @Entity()
 export class User extends MainEntity {
 

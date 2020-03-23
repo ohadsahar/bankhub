@@ -1,8 +1,7 @@
-import {MainEntity} from "../api/models/main.abstract";
-import {Column, Entity, ManyToOne, OneToMany} from "typeorm";
-import {User} from "./user.entity";
-import {Transaction} from "./transaction.entity";
-
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { MainEntity } from "../api/models/main.abstract";
+import { Transaction } from "./transaction.entity";
+import { User } from "./user.entity";
 @Entity()
 export class Category extends MainEntity {
 
@@ -17,5 +16,4 @@ export class Category extends MainEntity {
 
     @OneToMany(type => Transaction, transaction => transaction.category)
     transaction: Transaction[];
-
 }
