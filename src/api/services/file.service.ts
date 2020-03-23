@@ -7,6 +7,7 @@ import {readFile} from 'fs'
 import {extname} from 'path'
 import {promisify} from 'util'
 import moment from 'moment';
+import readXlsxFile from 'read-excel-file/node';
 
 @Service()
 export class FileService {
@@ -70,5 +71,13 @@ export class FileService {
         if (!extensions.includes(extname(originalName).toLocaleLowerCase())) throw new Error(
             'general.error.file_ext',
         )
+    }
+
+    uploadExcel(file) {
+        readXlsxFile(`src/uploads/${file.filename}`).then((rows) => {
+            console.log(rows);
+            // `rows` is an array of rows
+            // each row being an array of cells.
+        })
     }
 }
