@@ -3,6 +3,7 @@ import {MainEntity} from "../api/models/main.abstract";
 import {User} from "./user.entity";
 import {Transaction} from "./transaction.entity";
 import {BankAccount} from "./bank-account.entity";
+import {PaymentDateEnum} from "../api/models/types.enum";
 
 @Entity()
 export class Card extends MainEntity {
@@ -21,6 +22,9 @@ export class Card extends MainEntity {
 
     @Column({nullable: true})
     syncId: number;
+
+    @Column()
+    datePayment: PaymentDateEnum;
 
     @ManyToOne(type => User, user => user.cards, {cascade: true})
     user: User | User['id']

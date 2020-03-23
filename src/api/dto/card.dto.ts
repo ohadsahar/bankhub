@@ -1,4 +1,5 @@
 import {IsDefined} from "class-validator";
+import {PaymentDateEnum} from "../models/types.enum";
 
 export class CardDto {
 
@@ -22,6 +23,9 @@ export class CardDto {
 
     @IsDefined()
     bankName: string;
+
+    @IsDefined()
+    datePayment: PaymentDateEnum;
 
 
 }

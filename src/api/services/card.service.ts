@@ -2,11 +2,14 @@ import {Container, Service} from "typedi";
 import {Card} from "../../entities/card.entity";
 import {CardDto} from "../dto/card.dto";
 import {BankAccountService} from "./bank-account.service";
+import {FilterDto} from "../dto/filter.dto";
+import moment from 'moment';
 
 const bankAccountService = Container.get(BankAccountService);
 
 @Service()
 export class CardService {
+
     async create(cardData: CardDto, user: any): Promise<Card> {
         const cardEntity = new Card();
         cardEntity.user = user.id;
@@ -14,6 +17,7 @@ export class CardService {
         cardEntity.cardNumber = cardData.cardNumber;
         cardEntity.cardBudget = cardData.cardBudget;
         cardEntity.cardLogo = cardData.cardLogo;
+        cardEntity.datePayment = cardData.datePayment;
         cardEntity.syncId = user.id;
         const bankAccountData = {
             branch: cardData.branch,
@@ -44,8 +48,28 @@ export class CardService {
         return Card.delete(cardId);
     }
 
-    async get(): Promise<Card[]> {
-        return Card.find({relations: ['user', 'transactions', 'bankAccount']});
+    async get(filter?: FilterDto) {
+        let query = Card.createQueryBuilder("card")
+            .leftJoinAndSelect("card.user", "user")
+            .leftJoinAndSelect("card.transactions", "transactions")
+            .limit(filter.limit).skip(filter.skip)
+            .leftJoinAndSelect("card.bankAccount", "bankAccount");
+        if (filter.cardId) {
+            query.where({id: filter.cardId});
+        }
+        if (filter.threeDaysAgo) {
+            const today = moment().format("DD/MM/YYYY");
+            const threeDays = moment().subtract(3, 'd').format("DD/MM/YYYY");
+            query.andWhere("transactions.transactionDate >= :threeDays", {threeDays: threeDays});
+            query.andWhere("transactions.transactionDate <= :today", {today: today});
+        }
+        if (filter.startDate && !filter.threeDaysAgo) {
+            query.andWhere("transactions.transactionDate >= :startDate", {startDate: filter.startDate})
+        }
+        if (filter.endDate && !filter.threeDaysAgo) {
+            query.andWhere("transactions.transactionDate <= :endDate", {endDate: filter.endDate})
+        }
+        return query.getManyAndCount();
     }
 
     async getById(cardId): Promise<Card> {

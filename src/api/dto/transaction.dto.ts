@@ -12,7 +12,7 @@ export class TransactionDto {
     payments: number;
 
     @IsDefined()
-    transactionDate: Date;
+    transactionDate: string;
 
     @IsDefined()
     eachMonth: number;

@@ -1,6 +1,7 @@
 import {Service} from "typedi";
 import {Transaction} from "../../entities/transaction.entity";
 import {TransactionDto} from "../dto/transaction.dto";
+import moment from "moment";
 
 @Service()
 export class TransactionService {
@@ -10,7 +11,8 @@ export class TransactionService {
         transactionEntity.transactionName = transactionData.transactionName;
         transactionEntity.price = transactionData.price;
         transactionEntity.payments = transactionData.payments;
-        transactionEntity.transactionDate = new Date(transactionData.transactionDate).toDateString();
+        const IsoDateTo = moment(transactionData.transactionDate, 'DD/MM/YYYY').format('DD/MM/YYYY');
+        transactionEntity.transactionDate = IsoDateTo;
         transactionEntity.eachMonth = transactionData.eachMonth;
         transactionEntity.note = transactionData.note;
         transactionEntity.card = cardId;

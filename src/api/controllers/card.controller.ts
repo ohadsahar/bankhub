@@ -30,7 +30,7 @@ export const update = async (req: Request, res: Response) => {
 
 export const get = async (req: Request, res: Response) => {
     try {
-        const result = await cardService.get();
+        const result = await cardService.get(req.body);
         return handlerService.handleSuccess(res, result);
     } catch (error) {
         return handlerService.handleError(res, error);
