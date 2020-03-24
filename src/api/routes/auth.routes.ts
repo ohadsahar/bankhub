@@ -6,7 +6,6 @@ import {validationMiddleware} from "../middleware/validation.middleware";
 import {UserDto} from "../dto/user.dto";
 import {storage} from "../middleware/multer.middleware";
 
-
 const handleProfilePicture = multer({storage}).single(`profileImage`);
 
 export const router = Router()

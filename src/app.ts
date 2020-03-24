@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import passport from 'passport';
 import "reflect-metadata";
+import * as admin from 'firebase-admin';
 import ApiRouter from "./api/routes";
 import bootstrapDb from './config/db.config';
 import getConfig from './config/env.config';
@@ -11,9 +12,14 @@ import {initJWT} from './config/jwt.config';
 import Logger from './config/logger.config';
 import 'dotenv/config'
 
+const serviceAccount = require('../bankhub-c8db2-firebase-adminsdk-lcgzb-1ad270883a.json');
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://bankhub-c8db2.firebaseio.com"
+});
+
 const app = express();
 const config = getConfig();
-
 Logger.info('Starting server on 3..2..1..0');
 Logger.info(`Env: ${config.name}`);
 

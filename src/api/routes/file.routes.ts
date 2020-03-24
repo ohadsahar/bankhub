@@ -7,4 +7,4 @@ import {upload} from "../controllers/file.controller";
 const handleFile = multer({storage}).single(`bankhub`);
 
 export const router = Router()
-    .post('/upload', handleFile, isAuthenticateGuard, upload)
+    .post('/upload', handleFile, upload)

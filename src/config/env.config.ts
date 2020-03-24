@@ -12,6 +12,11 @@ const constants = {
         channel: 'sms',
         amount: '4'
     },
+    notification: {
+        title: "Bankhub - ניהול החשבון שלך",
+        body: "היי! שמנו לב שהגיע הזמן שתכניס את הנתונים",
+        icon: "default",
+    },
     jwt: {
         token_expires: '1 days',
         key: "l23@#shfa1340**@dfg009Alk3#Vk_anlj",
@@ -47,6 +52,11 @@ export interface IConfig {
         token_expires: string,
         key: string,
         ignoreExpiration: boolean
+    },
+    notification: {
+        title: string;
+        body: string;
+        icon: string;
     },
     s3: {
         upload_dir: string;

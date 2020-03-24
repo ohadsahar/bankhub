@@ -9,6 +9,20 @@ import {promisify} from 'util'
 import moment from 'moment';
 import readXlsxFile from 'read-excel-file/node';
 
+
+const schema = {
+    'fullName': {
+        prop: 'full name',
+        type: String,
+        required: true
+    },
+    'email': {
+        prop: 'email',
+        type: String,
+        required: true
+    },
+}
+
 @Service()
 export class FileService {
 
@@ -73,11 +87,16 @@ export class FileService {
         )
     }
 
-    uploadExcel(file) {
-        readXlsxFile(`src/uploads/${file.filename}`).then((rows) => {
-            console.log(rows);
-            // `rows` is an array of rows
-            // each row being an array of cells.
-        })
+    async uploadExcel(file) {
+        const result = await readXlsxFile(file.path);
+        if (result[0].includes("fullName") && result[0].includes("email")) {
+            result[0] = null;
+            result.forEach(data => {
+                if (data != null) {
+                    console.log(data[1]);
+                }
+            });
+        }
     }
+
 }
