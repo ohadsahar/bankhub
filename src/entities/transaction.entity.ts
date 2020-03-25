@@ -1,12 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { MainEntity } from "../api/models/main.abstract";
-import { Card } from "./card.entity";
-import { Category } from "./category.entity";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
+import {MainEntity} from "../api/models/main.abstract";
+import {Card} from "./card.entity";
+import {Category} from "./category.entity";
+import {Business} from "./business.entity";
+
 @Entity()
 export class Transaction extends MainEntity {
-
-    @Column()
-    transactionName: string;
 
     @Column()
     price: number;
@@ -29,4 +28,8 @@ export class Transaction extends MainEntity {
     @ManyToOne(type => Category, category => category.transaction, {cascade: true})
     @JoinColumn()
     category: Category | Category['id'];
+
+    @ManyToOne(type => Business, business => business.transaction, {cascade: true})
+    @JoinColumn()
+    business: Business | Business['id']
 }

@@ -13,8 +13,8 @@ const constants = {
         amount: '4'
     },
     notification: {
-        title: "Bankhub - ניהול החשבון שלך",
-        body: "היי! שמנו לב שהגיע הזמן שתכניס את הנתונים",
+        title: "Bankhub - ניהול נכון ויעיל של הבנק שלך",
+        body: "היי! שמנו לב שהגיע הזמן להכניס את עסקאות היום",
         icon: "default",
     },
     jwt: {

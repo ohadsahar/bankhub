@@ -3,7 +3,7 @@ import {IsDefined} from "class-validator";
 export class TransactionDto {
 
     @IsDefined()
-    transactionName: string;
+    businessId: number;
 
     @IsDefined()
     price: number;

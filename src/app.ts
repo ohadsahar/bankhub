@@ -10,7 +10,17 @@ import bootstrapDb from './config/db.config';
 import getConfig from './config/env.config';
 import {initJWT} from './config/jwt.config';
 import Logger from './config/logger.config';
+import {CronJob} from 'cron';
 import 'dotenv/config'
+import {Container} from "typedi";
+import {CronService} from "./api/services/cron.service";
+
+const cronService = Container.get(CronService);
+
+const job = new CronJob('1 * * * * *', function () {
+    cronService.notificationCron();
+}, null, true, 'Asia/Jerusalem');
+job.start();
 
 const serviceAccount = require('../bankhub-c8db2-firebase-adminsdk-lcgzb-1ad270883a.json');
 admin.initializeApp({

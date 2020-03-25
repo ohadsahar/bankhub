@@ -1,6 +1,8 @@
-import { Column, Entity, OneToOne } from "typeorm";
-import { MainEntity } from "../api/models/main.abstract";
-import { User } from './user.entity';
+import {Column, Entity, OneToOne} from "typeorm";
+import {MainEntity} from "../api/models/main.abstract";
+import {User} from './user.entity';
+import {Business} from "./business.entity";
+
 @Entity()
 export class FileModel extends MainEntity {
 
@@ -15,4 +17,7 @@ export class FileModel extends MainEntity {
 
     @OneToOne(type => User, user => user.profilePicture)
     user: User | User['id']
+
+    @OneToOne(type => Business, business => business.businessLogo)
+    business: Business | Business['id']
 }

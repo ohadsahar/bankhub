@@ -72,5 +72,9 @@ export class AuthService {
     async deleteUser(id: number): Promise<any> {
         return User.delete(id);
     }
+
+    async getAllUsers(): Promise<User[]> {
+        return await User.find({relations: ['settings']});
+    }
 }
 

@@ -15,6 +15,9 @@ export class User extends MainEntity {
     @Column()
     phoneNumber: string;
 
+    @Column({nullable: true})
+    firebaseToken: string;
+
     @OneToOne(type => FileModel, file => file.user, {cascade: true})
     @JoinColumn()
     profilePicture: FileModel;

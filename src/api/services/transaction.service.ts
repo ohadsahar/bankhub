@@ -8,7 +8,7 @@ export class TransactionService {
 
     async create(transactionData: TransactionDto, cardId: number): Promise<Transaction> {
         const transactionEntity = new Transaction();
-        transactionEntity.transactionName = transactionData.transactionName;
+        transactionEntity.business = transactionData.businessId;
         transactionEntity.price = transactionData.price;
         transactionEntity.payments = transactionData.payments;
         const IsoDateTo = moment(transactionData.transactionDate, 'DD/MM/YYYY').format('DD/MM/YYYY');
@@ -39,4 +39,5 @@ export class TransactionService {
     async get(): Promise<Transaction[]> {
         return Transaction.find();
     }
+
 }
