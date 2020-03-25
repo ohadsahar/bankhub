@@ -80,8 +80,4 @@ export class CardService {
         }
         return query.getManyAndCount();
     }
-
-    async getById(cardId): Promise<Card> {
-        return Card.findOne(cardId, {relations: ['user', 'transactions', 'bankAccount']});
-    }
 }

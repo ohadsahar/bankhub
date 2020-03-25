@@ -37,15 +37,6 @@ export const get = async (req: Request, res: Response) => {
     }
 }
 
-export const getById = async (req: Request, res: Response) => {
-    try {
-        const result = await cardService.getById(Number(req.params.id));
-        return handlerService.handleSuccess(res, result);
-    } catch (error) {
-        return handlerService.handleError(res, error);
-    }
-}
-
 export const deleteCard = async (req: Request, res: Response) => {
     try {
         const result = await cardService.deleteCard(parseInt(req.params.id));

@@ -17,7 +17,7 @@ import {CronService} from "./api/services/cron.service";
 
 const cronService = Container.get(CronService);
 
-const job = new CronJob('1 * * * * *', function () {
+const job = new CronJob('30 * * * * *', function () {
     cronService.notificationCron();
 }, null, true, 'Asia/Jerusalem');
 job.start();

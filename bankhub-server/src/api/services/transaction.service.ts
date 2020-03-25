@@ -11,10 +11,11 @@ export class TransactionService {
         transactionEntity.business = transactionData.businessId;
         transactionEntity.price = transactionData.price;
         transactionEntity.payments = transactionData.payments;
-        const IsoDateTo = moment(transactionData.transactionDate, 'DD/MM/YYYY').format('DD/MM/YYYY');
-        transactionEntity.transactionDate = IsoDateTo;
+        const isoDate = moment(transactionData.transactionDate, 'DD/MM/YYYY').format('DD/MM/YYYY');
+        transactionEntity.transactionDate = isoDate;
         transactionEntity.eachMonth = transactionData.eachMonth;
         transactionEntity.note = transactionData.note;
+        transactionEntity.totalPayment = transactionData.totalPayment;
         transactionEntity.card = cardId;
         transactionEntity.category = transactionData.categoryId;
         return Transaction.save(transactionEntity);
@@ -37,7 +38,7 @@ export class TransactionService {
     }
 
     async get(): Promise<Transaction[]> {
-        return Transaction.find();
+        return Transaction.find({relations:['card']});
     }
 
 }

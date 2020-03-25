@@ -7,6 +7,7 @@ import {router as BudgetRoutes} from './budget.routes';
 import {router as SettingsRoutes} from './settings.routes';
 import {router as FileRoutes} from './file.routes';
 import {router as BusinessRoutes} from './business.routes';
+import {router as StatisticRoutes} from './statistic.routes';
 
 const ApiRouter = Router();
 
@@ -18,4 +19,5 @@ ApiRouter.use('/budget', BudgetRoutes);
 ApiRouter.use('/settings', SettingsRoutes);
 ApiRouter.use('/files', FileRoutes);
 ApiRouter.use('/business', BusinessRoutes);
+ApiRouter.use('/statistic', StatisticRoutes);
 export default ApiRouter;

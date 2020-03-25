@@ -19,6 +19,9 @@ export class Transaction extends MainEntity {
     @Column()
     transactionDate: string;
 
+    @Column()
+    totalPayment: number;
+
     @Column({nullable: true})
     note: string;
 

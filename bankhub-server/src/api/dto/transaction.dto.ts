@@ -21,6 +21,9 @@ export class TransactionDto {
     note: string;
 
     @IsDefined()
+    totalPayment: number;
+
+    @IsDefined()
     categoryId: number;
 
 
