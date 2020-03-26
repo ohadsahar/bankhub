@@ -46,27 +46,27 @@ export class AuthService {
     }
 
     async findByPhoneNumber(phoneNumber: string): Promise<User> {
-        return await User.findOne({phoneNumber}, {relations: ['settings', 'budget', 'cards']});
+        return await User.findOne({phoneNumber}, {relations: ['settings', 'budget', 'cards', 'profilePicture']});
     }
 
     async update(userData, user: any, profileImage?): Promise<User> {
         const fileModel = new FileModel();
-        const result = await User.findOne(user.id);
-        if (!result) {
-            return null;
+        const existsUser = await User.findOne(user.id);
+        if (!existsUser) {
+            return;
         }
         if (profileImage) {
-            if (result.profilePicture) {
-                await fileService.removeS3(result.profilePicture.fileName);
+            if (existsUser.profilePicture) {
+                await fileService.removeS3(existsUser.profilePicture.fileName);
             }
             const {Location, Key} = await fileService.uploadImage(profileImage);
             fileModel.fileName = Key;
             fileModel.filePath = Location;
-            fileModel.uploaderId = result.id;
-            result.profilePicture = fileModel;
+            fileModel.uploaderId = existsUser.id;
+            existsUser.profilePicture = fileModel;
             await fileService.create(fileModel);
         }
-        return User.save({...result, ...userData});
+        return User.save({...existsUser, ...userData});
     }
 
     async deleteUser(id: number): Promise<any> {
