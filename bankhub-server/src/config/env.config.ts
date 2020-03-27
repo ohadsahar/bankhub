@@ -5,9 +5,9 @@ const argv: ParsedArgs = minimist(process.argv.slice(2));
 
 const constants = {
     sms: {
-        accountSid: 'AC1ce787397d5adfcd197c034895eb34f5',
-        serviceVerifyToken: 'VAcee7acb1b5b2e2124fb2eb713101b27b',
-        authToken: '9880c4b8a45e3b637e21a581bf9548bd',
+        accountSid: 'ACc7e8e39126dd875e0499de2a706b72f6',
+        serviceVerifyToken: 'VA3951c16940027e35b077c1b5993fce54',
+        authToken: '2502e8bb1fe7e1721c0d5af98753811a',
         smsMessage: 'היי שמחים שאתתם מצטרפים למשפחת WeDiet אנא הזינו את הקוד שלכם',
         channel: 'sms',
         amount: '4'

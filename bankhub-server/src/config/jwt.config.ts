@@ -19,6 +19,9 @@ export const initJWT = () => {
     };
     const strategy = new JwtStrategy(options, async (jwtPayload: { phoneNumber: string }, done) => {
         let user;
+        if (jwtPayload.phoneNumber.includes('+')) {
+            jwtPayload.phoneNumber = jwtPayload.phoneNumber.substr(4, jwtPayload.phoneNumber.length)
+        }
         user = await authService.findByPhoneNumber(jwtPayload.phoneNumber);
         if (!user) {
             // user = await authAdminService.adminGet(jwtPayload.phoneNumber);

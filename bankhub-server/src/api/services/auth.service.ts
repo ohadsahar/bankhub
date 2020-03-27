@@ -36,7 +36,7 @@ export class AuthService {
 
     async register(phoneNumber: string): Promise<string> {
         const userEntity = new User();
-        userEntity.phoneNumber = phoneNumber;
+        userEntity.phoneNumber = phoneNumber.substr(4, phoneNumber.length)
         await User.save(userEntity);
         return this.login(phoneNumber);
     }
