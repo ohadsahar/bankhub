@@ -1,24 +1,26 @@
 {
-  "name": "we-diet-server-side",
+  "name": "bankhub-server-side",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.ts",
+  "engines": {
+    "node": "10.16.2",
+    "npm": "6.9.0"
+  },
   "scripts": {
-    "start": "ts-node src/app.ts ",
+    "postinstall": "npm run build",
+    "build": "tsc",
+    "start:prod": "node build/src/app.js",
+    "start": "ts-node src/app.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ohadsahar/we-diet-server-side.git"
+    "url": "https://git.heroku.com/bankhub-server-side.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ohadsahar/we-diet-server-side/issues"
-  },
-  "homepage": "https://github.com/ohadsahar/we-diet-server-side#readme",
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.2",
     "@types/lodash": "^4.14.149",
@@ -50,6 +52,7 @@
     "pg": "^7.18.2",
     "read-excel-file": "^4.0.6",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.8.1",
     "twilio": "^3.40.0",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.24",

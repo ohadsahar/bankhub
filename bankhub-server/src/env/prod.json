@@ -1,0 +1,14 @@
+{
+  "name": "prod",
+  "logLevel": "tiny",
+  "dbHost": "ec2-176-34-97-213.eu-west-1.compute.amazonaws.com",
+  "dbUser": "bqugeaujsokaxs",
+  "dbPass": "8dafd214e31d19b40d124f6d635ad1724834f0fc4f62a9cdb82845da2aa43a0c",
+  "dbName": "df430gvmlsbus7",
+  "port": 3000,
+  "dbPort": 5432,
+  "production": true,
+  "synchronize": true,
+  "dropSchema": false,
+  "logging": false
+}

@@ -70,8 +70,11 @@ const init = () => {
         case 'dev':
             config = require(path.join(envPath, 'dev.json'));
             break;
+        case 'prod':
+            config = require(path.join(envPath, 'prod.json'));
+            break;
         default:
-            config = require(path.join(envPath, 'dev.json'));
+            config = require(path.join(envPath, 'prod.json'));
             break;
     }
     return Object.assign(config, constants);

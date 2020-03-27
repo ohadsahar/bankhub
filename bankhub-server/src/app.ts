@@ -14,17 +14,28 @@ import {CronJob} from 'cron';
 import 'dotenv/config'
 import {Container} from "typedi";
 import {CronService} from "./api/services/cron.service";
+import serviceAccount from '../bankhub-c8db2-firebase-adminsdk-lcgzb-1ad270883a.json';
 
 const cronService = Container.get(CronService);
-
+const firebaseParams = {
+    type: serviceAccount.type,
+    projectId: serviceAccount.project_id,
+    privateKeyId: serviceAccount.private_key_id,
+    privateKey: serviceAccount.private_key,
+    clientEmail: serviceAccount.client_email,
+    clientId: serviceAccount.client_id,
+    authUri: serviceAccount.auth_uri,
+    tokenUri: serviceAccount.token_uri,
+    authProviderX509CertUrl: serviceAccount.auth_provider_x509_cert_url,
+    clientC509CertUrl: serviceAccount.client_x509_cert_url
+}
 const job = new CronJob('30 * * * * *', function () {
     cronService.notificationCron();
 }, null, true, 'Asia/Jerusalem');
 job.start();
 
-const serviceAccount = require('../bankhub-c8db2-firebase-adminsdk-lcgzb-1ad270883a.json');
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(firebaseParams),
     databaseURL: "https://bankhub-c8db2.firebaseio.com"
 });
 
@@ -49,7 +60,7 @@ async function init() {
     } else {
         Logger.error('Db not connected');
     }
-    app.listen(config.port || 3000,
+    app.listen(process.env.PORT || 3000,
         () => Logger.info(`Server listing on port ${config.port || 3000}. Good Luck!`));
 }
 
