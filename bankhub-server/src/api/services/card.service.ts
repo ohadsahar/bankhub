@@ -52,7 +52,7 @@ export class CardService {
         let query = Card.createQueryBuilder("card")
             .leftJoinAndSelect("card.user", "user")
             .leftJoinAndSelect("card.transactions", "transactions")
-            .limit(filter.limit).skip(filter.skip)
+            .limit(filter.limit).offset(filter.skip)
             .leftJoinAndSelect("transactions.category", "category")
             .leftJoinAndSelect("transactions.business", "business")
             .leftJoinAndSelect("business.businessLogo", "businessLogo")
@@ -78,6 +78,6 @@ export class CardService {
         if (filter.order) {
             query.addOrderBy("transactions.transactionDate", filter.order)
         }
-        return query.getManyAndCount();
+        return query.getMany();
     }
 }

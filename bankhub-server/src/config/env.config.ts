@@ -74,7 +74,7 @@ const init = () => {
             config = require(path.join(envPath, 'prod.json'));
             break;
         default:
-            config = require(path.join(envPath, 'prod.json'));
+            config = require(path.join(envPath, 'dev.json'));
             break;
     }
     return Object.assign(config, constants);
